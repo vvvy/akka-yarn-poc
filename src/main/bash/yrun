@@ -1,0 +1,15 @@
+#!/bin/bash
+D=/media/sf_devel/src/akka-yarn-poc/target/scala-2.11
+V=5.12.0
+H=/user/cloudera
+N=4
+CMD=/bin/ls
+
+for a in $* ; do
+	eval $a
+done
+
+J=akka-yarn-poc-assembly-0.1-h2.6.0-cdh$V.jar
+
+hdfs dfs -put -f $D/$J $H
+hadoop jar $D/$J yakka.Main $CMD $N hdfs://$H/$J
